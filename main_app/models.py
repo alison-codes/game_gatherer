@@ -1,12 +1,12 @@
 from django.db import models
 from django.urls import reverse
+from datetime import date
+from django.contrib.auth.models import User
 
 OPTIONS = (
     ('T', True),
     ('F', False),
 )
-
-# Create your models here.
 
 class Adj(models.Model):
     type = models.CharField(max_length=20)
@@ -22,10 +22,11 @@ class Game(models.Model):
     description = models.TextField(max_length=350)
     year_created = models.IntegerField()
     adjs = models.ManyToManyField(Adj)
-    
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
     def __str__(self):
         return self.name
-    
+
     def get_absolute_url(self):
         return reverse('detail', kwargs={'game_id': self.id})
 
@@ -35,9 +36,9 @@ class Played(models.Model):
     won = models.CharField(
         max_length=5,
         choices=OPTIONS,
-	    default=OPTIONS[0][0]
-  )
-    
+        default=OPTIONS[0][0]
+    )
+
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -45,6 +46,7 @@ class Played(models.Model):
 
     class Meta:
         ordering = ['-date']
+
 
 class Photo(models.Model):
     url = models.CharField(max_length=200)

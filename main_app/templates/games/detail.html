@@ -18,21 +18,21 @@
     </div>
     {% for photo in game.photo_set.all %}
     <img class="responsive-img card-panel" src="{{photo.url}}">
-  {% empty %}
+    {% empty %}
     <div class="card-panel teal-text center-align">No Pictures of Game Uploaded</div>
-  {% endfor %}
+    {% endfor %}
 
-  <form action="{% url 'add_photo' game.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
-    {% csrf_token %}
-    <input type="file" name="photo-file">
-    <br><br>
-    <input type="submit" class="btn" value="Upload Photo">
-</form>
+    <form action="{% url 'add_photo' game.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
+      {% csrf_token %}
+      <input type="file" name="photo-file">
+      <br><br>
+      <input type="submit" class="btn" value="Upload Photo">
+    </form>
 
 
   </div>
   <div class="col s6">
-      <form action="{% url 'add_played' game.id %}" method="post">      {% csrf_token %}
+    <form action="{% url 'add_played' game.id %}" method="post"> {% csrf_token %}
       {{ played_form.as_p }}
       <input type="submit" class="btn" value="Add last play">
     </form>
@@ -59,48 +59,48 @@
   <div class="col s6">
     <h3>How friends describe {{ game.name }}</h3>
     {% if game.adjs.count %}
-      {% for adj in game.adjs.all %}
-        <div class="card">
-          <div class="card-content">
-            <span class="card-title">
-              {{ adj }}</span> 
-            </span>
-          </div>
-          <div class="card-action">
-              <form action="{% url 'unassoc_adj' game.id adj.id %}" method="post">
-                  {% csrf_token %}
-                <button type="submit" class="btn">Remove</button>
-              </form>
-            </div>
-        </div>
-       
-      {% endfor %}
+    {% for adj in game.adjs.all %}
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">
+          {{ adj }}</span>
+        </span>
+      </div>
+      <div class="card-action">
+        <form action="{% url 'unassoc_adj' game.id adj.id %}" method="post">
+          {% csrf_token %}
+          <button type="submit" class="btn">Remove</button>
+        </form>
+      </div>
+    </div>
+
+    {% endfor %}
     {% else %}
-      <h5>Nothing said yet :(</h5>
+    <h5>Nothing said yet :(</h5>
     {% endif %}
   </div>
   <div class="col s6">
-      <h3>Available Adjectives</h3>
-      {% if adjs.count %}
-        {% for adj in adjs.all %}
-          <div class="card">
-            <div class="card-content">
-              <span class="card-title">
-                {{ adj.type }}
-              </span>
-            </div>
-            <div class="card-action">
-                <form action="{% url 'assoc_adj' game.id adj.id %}" method="post">
-                {% csrf_token %}
-                <button type="submit" class="btn">Add</button>
-              </form>
-            </div>
-          </div>
-        {% endfor %}
-      {% else %}
-        <h5>{{cat.name}} already described by All available adjectives</h5>
-      {% endif %}
+    <h3>Available Adjectives</h3>
+    {% if adjs.count %}
+    {% for adj in adjs.all %}
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">
+          {{ adj.type }}
+        </span>
+      </div>
+      <div class="card-action">
+        <form action="{% url 'assoc_adj' game.id adj.id %}" method="post">
+          {% csrf_token %}
+          <button type="submit" class="btn">Add</button>
+        </form>
+      </div>
     </div>
+    {% endfor %}
+    {% else %}
+    <h5>{{cat.name}} already described by All available adjectives</h5>
+    {% endif %}
+  </div>
 
 
 </div>
