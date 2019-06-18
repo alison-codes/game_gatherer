@@ -1,16 +1,21 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Game List</h1>
+<h1>Your Game List</h1>
 
+{% if games.count %}
 {% for game in games %}
-    <div class="card">
-  <a href="{% url 'detail' game.id %}">
+<div class="card">
+    <a href="{% url 'detail' game.id %}">
         <div class="card-content">
             <span class="card-title">{{ game.name }}</span>
-            </div>
-        </a>
-    </div>
-     {% endfor %}
+        </div>
+    </a>
+</div>
+{% endfor %}
+{% else %}
+<h4>Welcome! It looks like you haven't added any games. Add one by selecting the link in the nav bar.
+</h4>
+{% endif %}
 
 {% endblock %}

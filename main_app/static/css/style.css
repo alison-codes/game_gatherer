@@ -12,19 +12,3 @@ footer.page-footer {
     padding-top: 0;
     text-align: right;
 }
-  
-.nav-wrapper, .page-footer {
-  background-color: rgb(75, 44, 8);
-}
-
-.nav-wrapper {
-  border-bottom: teal 10px solid;
-}
-
-.page-footer {
-  border-top: teal 3px solid;
-}
-
-a {
-  color: teal;
-}
